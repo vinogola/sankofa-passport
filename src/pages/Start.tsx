@@ -99,8 +99,6 @@ export default function Start() {
   }
 
   function begin() {
-    setAnswers({})
-    setIndex(0)
     setStep('quiz')
     window.scrollTo({ top: 0 })
   }
@@ -117,7 +115,7 @@ export default function Start() {
         <p className="reveal mt-3 max-w-xl text-ivory/80" style={{ '--d': 2 } as React.CSSProperties}>
           {!inQuiz
             ? 'Tell us a little about you, then answer a short set of questions. Your result becomes a passport an employer can check with one link.'
-            : 'One question at a time. Your answers are scored on the server, and nobody can change the score afterwards.'}
+            : 'One question at a time. Your answers are scored on the server, not in your browser, and any later edit to the record breaks its seal.'}
         </p>
       </PageBand>
       <section className="mx-auto max-w-3xl px-4 pb-24 pt-2 sm:px-6">
@@ -138,6 +136,10 @@ export default function Start() {
             onAnswer={(id, o) => setAnswers((a) => ({ ...a, [id]: o }))}
             onIndex={setIndex}
             onSubmit={submit}
+            onEdit={() => {
+              setStep('profile')
+              window.scrollTo({ top: 0 })
+            }}
           />
         )}
       </section>

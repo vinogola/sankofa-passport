@@ -10,6 +10,26 @@ import type { VerifyResult } from '../lib/types'
 
 export default function Verify() {
   const { code = '' } = useParams()
+  return (
+    <>
+      <PageBand>
+        <h1 className="reveal text-5xl font-medium tracking-tight sm:text-6xl">Verify a passport</h1>
+        <p className="reveal mt-3 max-w-xl text-ivory/80" style={{ '--d': 1 } as React.CSSProperties}>
+          Enter a passport code to see what was assessed and whether the record is intact.
+        </p>
+        <div className="reveal mt-6" style={{ '--d': 2 } as React.CSSProperties}>
+          <CodeForm key={code} initial={code} />
+        </div>
+      </PageBand>
+      <section className="mx-auto max-w-4xl px-4 pb-24 sm:px-6">
+        {/* keyed by code, so a new code always starts from a clean state */}
+        <Lookup key={code} code={code} />
+      </section>
+    </>
+  )
+}
+
+function Lookup({ code }: { code: string }) {
   const issued = Boolean((useLocation().state as { issued?: boolean } | null)?.issued)
   const [data, setData] = useState<VerifyResult | null>(null)
   const [error, setError] = useState<string | null>(
@@ -32,19 +52,7 @@ export default function Verify() {
   const loading = Boolean(code) && !data && !error
 
   return (
-    <>
-    <PageBand>
-      <h1 className="reveal text-5xl font-medium tracking-tight sm:text-6xl">Verify a passport</h1>
-      <p className="reveal mt-3 max-w-xl text-ivory/80" style={{ '--d': 1 } as React.CSSProperties}>
-        Enter a passport code to see what was assessed and whether the record is intact.
-      </p>
-      <div className="reveal mt-6" style={{ '--d': 2 } as React.CSSProperties}>
-        <CodeForm key={code} initial={code} />
-      </div>
-    </PageBand>
-    <section className="mx-auto max-w-4xl px-4 pb-24 sm:px-6">
-
-      <div className="mt-4" aria-live="polite">
+    <div className="mt-4" aria-live="polite">
         {loading && <p className="text-navy-300">Checking {code}…</p>}
         {error && <p className="rounded-2xl border border-[#e08a8a]/60 bg-navy-900 p-4 text-[#f3b1b1]">{error}</p>}
         {data && !data.found && (
@@ -63,9 +71,9 @@ export default function Verify() {
               <div className="flex items-start gap-4 rounded-2xl border border-gold-400/40 bg-gold-400/10 p-5">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold-400 font-bold text-navy-950" aria-hidden="true">✓</span>
                 <div>
-                  <p className="text-lg font-semibold">Verified: record intact and valid</p>
+                  <p className="text-lg font-semibold">Record unchanged since issue, and still valid</p>
                   <p className="text-sm text-ivory/75">
-                    Issued {fmtDate(data.issued_at)} · valid until {fmtDate(data.expires_at)} · SHA-256 seal matches
+                    Issued {fmtDate(data.issued_at)} · valid until {fmtDate(data.expires_at)} · seal check passed
                   </p>
                 </div>
               </div>
@@ -85,10 +93,18 @@ export default function Verify() {
             <div className="flex justify-center">
               <Certificate data={data} />
             </div>
+            <div className="mx-auto max-w-3xl rounded-2xl border border-ivory/15 bg-ivory/[0.05] p-5 text-sm text-ivory/85 sm:p-6">
+              <p className="font-display text-xl text-ivory">What this record shows, and what it does not</p>
+              <ul className="mt-3 list-disc space-y-1.5 pl-5">
+                <li>It shows the record has not changed since it was issued: the server recomputes the seal on every check.</li>
+                <li>It shows skill levels scored by Sankofa Passport's own test, on the issue date.</li>
+                <li>It does not show who the person is. Name, origin, qualification and experience are typed by the candidate.</li>
+                <li>It does not show the test was taken alone. It is unproctored and can be retaken.</li>
+                <li>The seal is not a signature. Whoever runs the database could change a record and re-seal it.</li>
+              </ul>
+            </div>
           </div>
         )}
       </div>
-    </section>
-    </>
   )
 }

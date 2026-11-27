@@ -11,17 +11,18 @@ interface Props {
   onAnswer: (id: string, option: number) => void
   onIndex: (i: number) => void
   onSubmit: () => void
+  onEdit: () => void
 }
 
-export default function Quiz({ questions, index, answers, submitting, error, onAnswer, onIndex, onSubmit }: Props) {
+export default function Quiz({ questions, index, answers, submitting, error, onAnswer, onIndex, onSubmit, onEdit }: Props) {
   const q = questions[index]
   const head = useRef<HTMLHeadingElement>(null)
-  const answered = Object.keys(answers).length
+  const answered = questions.filter((x) => answers[x.id] !== undefined).length
   const last = index === questions.length - 1
 
   // Move focus to the new question so keyboard and screen-reader users follow along.
   useEffect(() => {
-    if (index > 0) head.current?.focus()
+    head.current?.focus()
   }, [index])
 
   const btn = 'rounded-full px-7 py-3 font-semibold transition disabled:cursor-not-allowed disabled:opacity-40'
@@ -76,9 +77,14 @@ export default function Quiz({ questions, index, answers, submitting, error, onA
       )}
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-        <button type="button" disabled={index === 0 || submitting} onClick={() => onIndex(index - 1)} className={`${btn} border border-ivory/30 hover:border-gold-400`}>
-          Back
-        </button>
+        <div className="flex flex-wrap gap-3">
+          <button type="button" disabled={index === 0 || submitting} onClick={() => onIndex(index - 1)} className={`${btn} border border-ivory/30 hover:border-gold-400`}>
+            Back
+          </button>
+          <button type="button" disabled={submitting} onClick={onEdit} className={`${btn} border border-ivory/30 hover:border-gold-400`}>
+            Edit my details
+          </button>
+        </div>
         {last ? (
           <button type="button" disabled={submitting || answered < questions.length} onClick={onSubmit} className={`${btn} bg-gold-400 text-navy-950 hover:bg-gold-300`}>
             {submitting ? 'Scoring…' : 'Submit and get my passport'}

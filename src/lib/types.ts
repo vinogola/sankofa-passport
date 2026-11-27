@@ -40,7 +40,11 @@ export interface Passport {
 
 export type VerifyResult = Passport | { found: false }
 
-const PROFESSIONS: Record<string, string> = { 'web-dev': 'Web developer' }
+const PROFESSIONS: Record<string, string> = {
+  'web-dev': 'Web developer',
+  'it-support': 'IT support',
+  'office-data': 'Office & data skills',
+}
 export const professionLabel = (slug: string) => PROFESSIONS[slug] ?? slug
 
 /** Display names. DB values stay proficient/developing/bridging. */
@@ -123,4 +127,19 @@ export function buildProfile(p: ProfileInput) {
     document_status: p.document_status,
     experience,
   }
+}
+
+/** Stored records are validated on the server, but the page must still never crash on odd data. */
+export const txt = (v: unknown, fallback = ''): string => (typeof v === 'string' ? v : fallback)
+
+export function qualificationTitle(q: unknown): string {
+  return txt((q as { title?: unknown } | null)?.title) || 'Not given'
+}
+
+export function experienceLine(list: unknown): string {
+  if (!Array.isArray(list) || list.length === 0) return 'None listed'
+  const parts = list
+    .filter((e): e is Record<string, unknown> => typeof e === 'object' && e !== null)
+    .map((e) => `${txt(e.title, 'Role')}${typeof e.years === 'number' && e.years > 0 ? `, ${e.years} yrs` : ''}`)
+  return parts.length ? parts.join('; ') : 'None listed'
 }

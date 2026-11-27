@@ -18,7 +18,7 @@ export default function ShareBox({ code }: { code: string }) {
     <div className="rounded-2xl border border-gold-400/40 bg-navy-900 p-5 sm:p-6">
       <p className="font-display text-2xl text-gold-300">Your passport is ready</p>
       <p className="mt-2 text-ivory/85">
-        Share this link with an employer. They can open it with no login and check that the record is genuine.
+        Share this link with an employer. They can open it with no login and check that the record is unchanged and still valid.
       </p>
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
         <input readOnly value={url} onFocus={(e) => e.currentTarget.select()} aria-label="Passport link" className="min-w-0 flex-1 rounded-xl border border-ivory/25 bg-navy-950 px-4 py-3 font-mono text-sm text-ivory" />

@@ -34,7 +34,7 @@ export default function ProfileForm({ value, professions, onChange, onNext }: Pr
     if (!value.profession) next.profession = 'Choose what you are being assessed in.'
     if (!value.document_status) next.document_status = 'Choose the option that fits best.'
     value.roles.forEach((r, i) => {
-      if (r.years && !/^\d{1,2}$/.test(r.years.trim())) next[`years${i}`] = 'Whole years, for example 3.'
+      if (r.years && (!/^\d{1,2}$/.test(r.years.trim()) || Number(r.years) > 60)) next[`years${i}`] = 'Whole years from 0 to 60, for example 3.'
     })
     setErrors(next)
     if (Object.keys(next).length === 0) onNext()
@@ -67,7 +67,7 @@ export default function ProfileForm({ value, professions, onChange, onNext }: Pr
             value={value.display_name}
             onChange={(e) => set('display_name', e.target.value)}
             autoComplete="off"
-            maxLength={80}
+            maxLength={60}
             aria-invalid={Boolean(errors.display_name)}
             aria-describedby={errors.display_name ? 'err-display_name' : undefined}
           />
@@ -187,7 +187,7 @@ export default function ProfileForm({ value, professions, onChange, onNext }: Pr
         </select>
         {err('profession')}
         <p className={hint}>
-          You will answer questions on this profession, then a short workplace-readiness set that everyone takes. About 10 minutes.
+          You will answer questions on this profession, then a short workplace-readiness set that everyone takes. Fifteen questions in all.
         </p>
       </fieldset>
 

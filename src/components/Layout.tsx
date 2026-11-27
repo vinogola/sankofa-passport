@@ -1,7 +1,9 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
+import ErrorBoundary from './ErrorBoundary'
 import Mark from './Mark'
 
 export default function Layout() {
+  const { pathname } = useLocation()
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-clip">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-gold-400 focus:px-3 focus:py-2 focus:text-navy-950">
@@ -20,7 +22,9 @@ export default function Layout() {
         </div>
       </header>
       <main id="main" className="flex-1">
-        <Outlet />
+        <ErrorBoundary resetKey={pathname}>
+          <Outlet />
+        </ErrorBoundary>
       </main>
       <footer className="border-t border-gold-400/15 bg-navy-950">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-10 text-sm text-navy-300 sm:px-10 md:flex-row md:items-center md:justify-between">

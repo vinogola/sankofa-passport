@@ -1,7 +1,7 @@
 import { QRCodeSVG } from 'qrcode.react'
 import Guilloche from './Guilloche'
 import Mark from './Mark'
-import { DOCUMENTS_LABEL, LEVEL_KEY, LEVEL_LABEL, fmtDate, professionLabel } from '../lib/types'
+import { DOCUMENTS_LABEL, LEVEL_KEY, LEVEL_LABEL, experienceLine, fmtDate, professionLabel, qualificationTitle } from '../lib/types'
 import type { Level, Passport, Status } from '../lib/types'
 
 /** Certificate-style passport, kept quiet: parchment, a faint engraved texture, one status mark, results as rows. */
@@ -100,15 +100,11 @@ export default function PassportCard({ data, sample = false }: { data: Passport;
           <>
             <h3 className={`mt-5 ${label}`}>Self-declared · not verified</h3>
             <dl className="mt-2 space-y-2 border-t border-ink/15 pt-3 text-sm">
-              <Row k="Qualification" v={data.qualification.title ?? 'Not given'} />
+              <Row k="Qualification" v={qualificationTitle(data.qualification)} />
               <Row k="Documents" v={DOCUMENTS_LABEL[data.document_status]} />
               <Row
                 k="Experience"
-                v={
-                  data.experience.length
-                    ? data.experience.map((e) => `${e.title ?? 'Role'}${e.years ? `, ${e.years} yrs` : ''}`).join('; ')
-                    : 'None listed'
-                }
+                v={experienceLine(data.experience)}
               />
               <Row k="Languages" v={data.languages.join(', ') || 'Not given'} />
             </dl>
@@ -120,7 +116,7 @@ export default function PassportCard({ data, sample = false }: { data: Passport;
             <p className="font-mono text-sm tracking-wider text-ink">{data.public_code}</p>
             <p className="text-ink/75">Issued {fmtDate(data.issued_at)} · valid until {fmtDate(data.expires_at)}</p>
             <p className={`font-medium ${data.hash_ok ? 'text-[#1d6b4b]' : 'text-[#9b2c2c]'}`}>
-              {data.hash_ok ? '✓ Seal intact' : '✕ Seal broken: record changed after issue'}
+              {data.hash_ok ? '✓ Unchanged since issue' : '✕ Changed after issue'}
             </p>
           </div>
           <QRCodeSVG
