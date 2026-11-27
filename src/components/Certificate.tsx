@@ -12,7 +12,8 @@ const STATUS: Record<Status, { label: string; cls: string }> = {
 }
 
 export default function Certificate({ data }: { data: Passport }) {
-  const status = STATUS[data.status]
+  // A record that fails the seal check must not carry a green "Valid" chip.
+  const status = data.hash_ok ? STATUS[data.status] : { label: 'Altered', cls: STATUS.revoked.cls }
   const verifyUrl = `${window.location.origin}/verify/${data.public_code}`
   const experience = experienceLine(data.experience)
 
