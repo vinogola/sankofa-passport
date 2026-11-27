@@ -1,0 +1,20 @@
+-- Questions and options only. Answer keys are not in this repo.
+-- Generated from the private question bank. Safe to re-run (upsert).
+insert into public.questions (id, bank, skill, prompt, options, sort) values
+ ('wd-1', 'web-dev', 'HTML & CSS', 'Which element should wrap the main navigation links of a page?', '["`<div class=\"nav\">`", "`<header>`", "`<nav>`", "`<aside>`"]'::jsonb, 1),
+ ('wd-2', 'web-dev', 'HTML & CSS', 'An image is a chart that carries information. Which alt text is best?', '["`alt=\"image\"`", "`alt=\"\"`", "No alt attribute", "`alt=\"Bar chart: sales rose 20% from May to June\"`"]'::jsonb, 2),
+ ('wd-3', 'web-dev', 'HTML & CSS', 'You want three cards side by side that wrap onto new lines on small screens. Which CSS is the simplest fit?', '["`display: flex; flex-wrap: wrap;` on the container", "`float: left;` on each card", "`position: absolute;` on each card", "`display: table;` on the container"]'::jsonb, 3),
+ ('wd-4', 'web-dev', 'JavaScript', 'What does `[1, 2, 3].map(n => n * 2)` return?', '["`6`", "`[2, 4, 6]`", "`[1, 2, 3]`", "`undefined`"]'::jsonb, 4),
+ ('wd-5', 'web-dev', 'JavaScript', 'What is logged? `const a = [1, 2]; const b = a; b.push(3); console.log(a.length);`', '["`2`", "`undefined`", "`3`", "An error, because `a` is const"]'::jsonb, 5),
+ ('wd-6', 'web-dev', 'JavaScript', 'Inside an async function, which correctly fetches a URL and reads its JSON?', '["`const res = await fetch(url); const data = await res.json()`", "`const data = fetch(url).json()`", "`const data = await fetch(url).json`", "`fetch(url).then(res => res.json)`"]'::jsonb, 6),
+ ('wd-7', 'web-dev', 'Git & debugging', 'You changed some files and want to save a snapshot locally with a message. What do you run?', '["`git push`", "`git clone`", "`git pull`", "`git add`, then `git commit -m \"message\"`"]'::jsonb, 7),
+ ('wd-8', 'web-dev', 'Git & debugging', 'A teammate merged changes into `main` on GitHub. How do you bring them into your local `main`?', '["`git pull`", "`git push`", "`git init`", "`git stash drop`"]'::jsonb, 8),
+ ('wd-9', 'web-dev', 'Git & debugging', 'A button does nothing when clicked. What is the best first step?', '["Rewrite the component", "Open the browser console and check for errors", "Clear all cookies", "Restart the computer"]'::jsonb, 9),
+ ('wp-1', 'workplace', 'Remote collaboration', 'A teammate in another time zone asks for a progress update. What is the best reply?', '["Ignore it until your next shift", "Reply \"it''s going fine\"", "A short written update: status, blockers and next step", "Call them at 3 a.m. their time"]'::jsonb, 10),
+ ('wp-2', 'workplace', 'Remote collaboration', 'You will miss a deadline you agreed to. When should you tell your lead?', '["After the deadline passes", "As soon as you know, with a new estimate", "Only if they ask", "Never; work overtime instead"]'::jsonb, 11),
+ ('wp-3', 'workplace', 'Remote collaboration', 'In a video call your connection is weak. What helps the team most?', '["Keep the camera on at all costs", "Leave without saying anything", "Speak louder", "Turn video off, stay on audio, and follow up in writing"]'::jsonb, 12),
+ ('wp-4', 'workplace', 'Digital safety', 'An email that looks like it is from your bank asks you to "verify your account" through a link. What do you do?', '["Go to the bank''s site yourself or call them; do not use the link", "Click the link and log in", "Reply with your password", "Forward it to all your colleagues"]'::jsonb, 13),
+ ('wp-5', 'workplace', 'Digital safety', 'Which password is strongest?', '["`Password123!`", "Your name and birth year", "A long passphrase of four random words", "The same password you use everywhere"]'::jsonb, 14),
+ ('wp-6', 'workplace', 'Digital safety', 'You need to share a client file with one colleague. Which is safest?', '["A public link anyone can open", "The company''s approved sharing tool, with access for that colleague only", "Your personal social media", "Print it and leave it on a desk"]'::jsonb, 15)
+on conflict (id) do update set bank = excluded.bank, skill = excluded.skill,
+  prompt = excluded.prompt, options = excluded.options, sort = excluded.sort;

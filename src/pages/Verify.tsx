@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import CodeForm from '../components/CodeForm'
 import PageBand from '../components/PageBand'
 import Certificate from '../components/Certificate'
+import ShareBox from '../components/ShareBox'
 import { supabase, supabaseReady } from '../lib/supabase'
 import { fmtDate } from '../lib/types'
 import type { VerifyResult } from '../lib/types'
 
 export default function Verify() {
   const { code = '' } = useParams()
+  const issued = Boolean((useLocation().state as { issued?: boolean } | null)?.issued)
   const [data, setData] = useState<VerifyResult | null>(null)
   const [error, setError] = useState<string | null>(
     supabaseReady ? null : 'Verification is not configured on this deployment.',
@@ -56,6 +58,7 @@ export default function Verify() {
         )}
         {data && data.found && (
           <div className="space-y-5">
+            {issued && <ShareBox code={data.public_code} />}
             {data.hash_ok && data.status === 'valid' ? (
               <div className="flex items-start gap-4 rounded-2xl border border-gold-400/40 bg-gold-400/10 p-5">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold-400 font-bold text-navy-950" aria-hidden="true">✓</span>
