@@ -45,5 +45,15 @@ Per skill: share of correct answers. Proficient >= 80%, Developing 60-79%, Bridg
 - **Visual:** navy, bronze, gold. A simple original SVG bird mark, drawn for this project, not copied artwork. Check bronze-on-navy text contrast (WCAG AA) in the design stage.
 - **Honesty rule:** the tagline claims recognition of experience, so the passport must show experience, labelled self-declared.
 
+## Design brief (stage C, 2026-11-27)
+- **Hero:** navy night with faint stars and a large engraved seal (rosette) carrying the bird mark and the tagline on a ring. Headline "Your skills travel with you." in Fraunces with a hand-drawn gold underline under "skills". Description: two short lines behind a thin gold rule ("Prove what you can do, wherever you learned it." / "Employers check your passport with one link."). Call-to-action pill bottom-right. The seal moves lower and dims on phones so text stays readable.
+- **Page:** layout after design C (Codos-inspired): glass step cards, a code check with a "Try a sample" link, a "Why Sankofa" credit. The original purple/orange C is kept at /heroes/c for comparison.
+- **Verify view:** a landscape certificate (chosen from four passport designs: certificate card, landscape certificate, wallet ID card, skills-first badge). Framed parchment, "Certificate of Assessed Skills", holder's name centred in the serif, assessed skills with level and %, the level key, a "Self-declared · not verified" block, a seal stamp that turns red when the hash check fails, an issuer line with dates, a QR code to the verify page, and the full SHA-256 hash.
+- **Home preview card:** a quiet certificate. Parchment with a 7% engraved texture, navy header with a flat status chip, serif holder name with an initials monogram (no photos: synthetic data), results as transcript rows (skill, level, %, thin bar coloured by level) with a one-line level key, a "Self-declared · not verified" section, and one footer with code, dates, seal status and a QR code to the verify page.
+- **Verify page:** opens with a verdict banner (gold "Verified: record intact and valid", or red "Do not rely on this record").
+- **Colour and type:** navy, bronze, gold, ivory, parchment; solid UI fills, one radial glow behind the seal. Fraunces (hero), Gloock (card name and header), Instrument Sans (UI), IBM Plex Mono (codes).
+- **Checks:** WCAG AA text contrast (card text on texture lines 4.8:1 or better), smallest card text 11.2px, 1280px and 375px with no horizontal scroll, reduced motion respected.
+- **Review:** an AI reviewer briefed as a senior UI/UX designer scored the site; its fixes were applied except restoring the warm sky gradient. Later rounds were driven by Vincent's feedback (too many gradients, card too noisy, people first).
+
 ## Out of scope
 Candidate accounts, document uploads, live LLM, real assessor workflow, payments, real personal data.

@@ -1,17 +1,52 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy-950: #0a1628;
-  --color-navy-900: #0f2038;
-  --color-navy-800: #17304f;
-  --color-bronze-500: #b07a3f;
+  --font-display: "Gloock", Georgia, serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-navy-950: #081222;
+  --color-navy-900: #0d1c33;
+  --color-navy-800: #142b4a;
+  --color-navy-700: #1d3a60;
+  --color-navy-300: #9fb0c8;
+  --color-bronze-400: #cf9a5c;   /* text on navy: 7.5:1 */
+  --color-bronze-600: #a3703a;   /* decoration only on navy (4.4:1) */
+  --color-bronze-700: #8a5a26;   /* text on parchment: 4.8:1 */
+  --color-bronze-800: #744a1d;   /* small text on parchment: 6.3:1 */
+  --color-gold-300: #f0d27a;
   --color-gold-400: #e3b94c;
-  --color-ivory: #f6f1e6;
+  --color-ivory: #f4ecd9;
+  --color-parchment: #f2e8d0;
+  --color-ink: #0d1c33;
 }
+
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
   background: var(--color-navy-950);
   color: var(--color-ivory);
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--color-gold-400); color: var(--color-navy-950); }
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-300);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* One orchestrated entrance: elements rise in sequence via --d. */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.reveal { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--d, 0) * 90ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { animation: none; opacity: 1; transform: none; }
 }
