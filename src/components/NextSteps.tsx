@@ -42,8 +42,8 @@ export default function NextSteps({ data }: { data: Passport }) {
           <div>
             <p className="font-medium text-ivory">Skills to build</p>
             <p className="mt-1">
-              {weak.map((r) => r.skill).join(', ')} scored under 60%. UNHCR lists free training programmes (language, digital skills, vocational
-              training) and says it and its partners often offer them. <Src id="unhcr" />
+              {weak.map((r) => r.skill).join(', ')} scored under 60%. UNHCR suggests taking part in free training programmes (language, digital skills,
+              vocational training) and says it and its partners often offer these services for free. <Src id="unhcr" />
             </p>
           </div>
         )}

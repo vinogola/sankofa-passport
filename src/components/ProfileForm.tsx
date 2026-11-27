@@ -213,7 +213,7 @@ export default function ProfileForm({ value, professions, onChange, onNext }: Pr
       </fieldset>
 
       <p className="max-w-2xl text-sm text-ivory/75">
-        This is a prototype: use made-up details. Your record is stored in a database, anyone who has your passport code can read it, and there is no way to delete a record yet.
+        This is a prototype: use made-up details. Your record is stored in a database, anyone who has your passport code, and the people running this prototype, can read it, and there is no way to delete a record yet.
       </p>
       <button type="submit" className="rounded-full bg-gold-400 px-8 py-3.5 font-semibold text-navy-950 hover:bg-gold-300">
         Start the assessment

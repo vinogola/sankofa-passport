@@ -47,9 +47,9 @@ export const CHECKS: Check[] = [
   },
   {
     id: 'proof',
-    title: 'Proof of your qualifications or experience',
+    title: 'Proof of your qualifications or experience, if you have it',
     label: 'I have some proof of my qualifications or work experience.',
-    todo: 'The UNESCO Qualifications Passport is for refugees and vulnerable migrants whose documents are insufficient or missing. It summarises your education, work experience and language skills after an assessment and structured interview. It is not a licence to practise a profession or a guarantee of a job.',
+    todo: 'The UNESCO Qualifications Passport is for refugees and vulnerable migrants who have completed, or partly completed, studies at upper secondary level or above, even if their documents are insufficient or missing. It summarises your education, work experience and language skills after an assessment and structured interview. It is not a licence to practise a profession or a guarantee of a job. Check with UNESCO whether it is available to you.',
     source: 'unesco',
   },
   {
