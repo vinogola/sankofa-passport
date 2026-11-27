@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
-import Heroes from './pages/Heroes'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import Start from './pages/Start'
@@ -16,7 +15,6 @@ export default function App() {
         <Route path="/verify/:code" element={<Verify />} />
         <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="/heroes/c" element={<Heroes />} />
     </Routes>
   )
 }
