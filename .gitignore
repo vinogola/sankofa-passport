@@ -29,3 +29,4 @@ build-plan.md
 .env.*
 !.env.example
 supabase/private/
+pitch-notes.md
