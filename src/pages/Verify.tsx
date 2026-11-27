@@ -4,6 +4,7 @@ import CodeForm from '../components/CodeForm'
 import PageBand from '../components/PageBand'
 import Certificate from '../components/Certificate'
 import ShareBox from '../components/ShareBox'
+import NextSteps from '../components/NextSteps'
 import { supabase, supabaseReady } from '../lib/supabase'
 import { fmtDate } from '../lib/types'
 import type { VerifyResult } from '../lib/types'
@@ -103,6 +104,7 @@ function Lookup({ code }: { code: string }) {
                 <li>The seal is not a signature. Whoever runs the database could change a record and re-seal it.</li>
               </ul>
             </div>
+            <NextSteps data={data} />
           </div>
         )}
       </div>

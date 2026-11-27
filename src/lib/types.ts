@@ -90,6 +90,8 @@ export interface ProfileInput {
   qualification_institution: string
   document_status: '' | 'full' | 'partial' | 'none'
   roles: RoleInput[]
+  /** Ticked work-readiness ids (see lib/readiness.ts). Self-declared. */
+  checks: string[]
 }
 
 export const EMPTY_PROFILE: ProfileInput = {
@@ -101,6 +103,7 @@ export const EMPTY_PROFILE: ProfileInput = {
   qualification_institution: '',
   document_status: '',
   roles: [{ title: '', years: '', referee: '' }],
+  checks: [],
 }
 
 /** Trim and shape the form for submit_assessment. The server re-checks everything and sets all scores. */
@@ -126,6 +129,7 @@ export function buildProfile(p: ProfileInput) {
     qualification,
     document_status: p.document_status,
     experience,
+    readiness: { checks: p.checks },
   }
 }
 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { CHECKS } from '../lib/readiness'
 import { professionLabel } from '../lib/types'
 import type { ProfileInput, RoleInput } from '../lib/types'
 
@@ -166,6 +167,26 @@ export default function ProfileForm({ value, professions, onChange, onNext }: Pr
       </fieldset>
 
       <fieldset className="rounded-2xl border border-ivory/15 bg-ivory/[0.05] p-6">
+        <legend className="px-2 font-display text-2xl">Ready for work?</legend>
+        <p className="text-sm text-ivory/75">
+          Optional. Tick what is true today. It shows on the passport as self-declared, and your passport page lists next steps for the rest.
+        </p>
+        <div className="mt-3 space-y-2">
+          {CHECKS.map((c) => (
+            <label key={c.id} className="flex cursor-pointer items-start gap-3 rounded-xl border border-ivory/15 p-3 has-[:checked]:border-gold-400 has-[:checked]:bg-gold-400/10 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-gold-300">
+              <input
+                type="checkbox"
+                className="mt-1 h-4 w-4 shrink-0 accent-gold-400"
+                checked={value.checks.includes(c.id)}
+                onChange={(e) => set('checks', e.target.checked ? [...value.checks, c.id] : value.checks.filter((x) => x !== c.id))}
+              />
+              <span className="text-sm">{c.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="rounded-2xl border border-ivory/15 bg-ivory/[0.05] p-6">
         <legend className="px-2 font-display text-2xl">What to assess</legend>
         <label htmlFor="prof" className={label}>
           Profession
@@ -191,6 +212,9 @@ export default function ProfileForm({ value, professions, onChange, onNext }: Pr
         </p>
       </fieldset>
 
+      <p className="max-w-2xl text-sm text-ivory/75">
+        This is a prototype: use made-up details. Your record is stored in a database, anyone who has your passport code can read it, and there is no way to delete a record yet.
+      </p>
       <button type="submit" className="rounded-full bg-gold-400 px-8 py-3.5 font-semibold text-navy-950 hover:bg-gold-300">
         Start the assessment
       </button>

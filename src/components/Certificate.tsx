@@ -1,5 +1,6 @@
 import { QRCodeSVG } from 'qrcode.react'
 import Mark from './Mark'
+import { CHECKS, tickedChecks } from '../lib/readiness'
 import { DOCUMENTS_LABEL, LEVEL_KEY, LEVEL_LABEL, experienceLine, fmtDate, professionLabel, qualificationTitle } from '../lib/types'
 import type { Passport, Status } from '../lib/types'
 
@@ -59,6 +60,7 @@ export default function Certificate({ data }: { data: Passport }) {
                 ['Documents', DOCUMENTS_LABEL[data.document_status]],
                 ['Experience', experience],
                 ['Languages', data.languages.join(', ') || 'Not given'],
+                ['Work readiness', tickedChecks(data.readiness).length ? `${tickedChecks(data.readiness).length} of ${CHECKS.length} ticked` : 'None ticked'],
               ].map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-3">
                   <dt className="text-ink/70">{k}</dt>
